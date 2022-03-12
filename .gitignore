@@ -1,3 +1,12 @@
+# Dist dir
+dist/**
+
+# qmake.stash
+.qmake.stash
+
+# Makefile
+Makefile
+
 # Prerequisites
 *.d
 
