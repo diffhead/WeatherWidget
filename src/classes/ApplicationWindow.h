@@ -9,7 +9,7 @@
 class ApplicationWindow: public QWidget
 {
     private:
-        QLabel *rootLabel;
+        QLabel *weatherText;
 
         QBoxLayout *layout;
 

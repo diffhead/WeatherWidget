@@ -4,12 +4,12 @@ ApplicationWindow::ApplicationWindow()
 {
     this->layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
 
-    this->rootLabel = new QLabel();
+    this->weatherText = new QLabel();
 
-    this->layout->addWidget(this->rootLabel);
+    this->layout->addWidget(this->weatherText);
 }
 
 void ApplicationWindow::setWeatherText(const QString string)
 {
-    this->rootLabel->setText(string);
+    this->weatherText->setText(string);
 }

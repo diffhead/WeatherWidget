@@ -4,6 +4,7 @@
 #include <QString>
 #include <QIODevice>
 #include <QByteArray>
+#include <QCoreApplication>
 
 #include <QJsonObject>
 #include <QJsonDocument>
