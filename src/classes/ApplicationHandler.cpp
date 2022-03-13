@@ -32,7 +32,7 @@ void ApplicationHandler::startWeatherMonitoring()
 {
     this->requestWeatherAndShowIt();
 
-    this->timer->start(60000);
+    this->timer->start(5000);
 
     QObject::connect(this->timer, &QTimer::timeout, this->timer, [=]() {
         this->requestWeatherAndShowIt();
@@ -52,7 +52,7 @@ void ApplicationHandler::requestWeatherAndShowIt()
         QJsonObject weather = json.value("weather").toArray().at(0).toObject();
 
         QString weatherDescription = weather.value("main").toString();
-        QString weatherTemperature = QString::number(main.value("temp").toDouble(), 'f', 2);
+        QString weatherTemperature = QString::number(main.value("temp").toDouble(), 'f', 0);
 
         this->window->setWeatherText(weatherDescription.append(QString(" ")).append(weatherTemperature));
     });
