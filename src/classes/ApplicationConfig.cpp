@@ -2,7 +2,9 @@
 
 ApplicationConfig::ApplicationConfig()
 {
-    QFile configFile("config.json");
+    QString filePath = QCoreApplication::applicationDirPath().append("/config.json");
+
+    QFile configFile(filePath);
 
     QByteArray jsonText;
 
