@@ -32,9 +32,11 @@ class ApplicationHandler: public QObject
         QNetworkReply *reply;
         QNetworkAccessManager *network;
 
+        QString weatherRequestUri;
+
         void requestWeatherAndShowIt();
 
-        QString getWeatherRequestUrl();
+        QString buildWeatherRequestUri();
 
     public:
         ApplicationHandler(QApplication *application, ApplicationConfig *config);

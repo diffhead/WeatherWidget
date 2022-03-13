@@ -8,6 +8,8 @@ ApplicationHandler::ApplicationHandler(QApplication *application, ApplicationCon
     this->timer = new QTimer(this);
     this->network = new QNetworkAccessManager();
     this->window = new ApplicationWindow();
+
+    this->weatherRequestUri = this->buildWeatherRequestUri();
 }
 
 QApplication* ApplicationHandler::getApplication()
@@ -41,7 +43,7 @@ void ApplicationHandler::startWeatherMonitoring()
 
 void ApplicationHandler::requestWeatherAndShowIt()
 {
-    QNetworkRequest request(QUrl(this->getWeatherRequestUrl()));
+    QNetworkRequest request(QUrl(this->weatherRequestUri));
 
     this->reply = this->network->get(request);
 
@@ -58,7 +60,7 @@ void ApplicationHandler::requestWeatherAndShowIt()
     });
 }
 
-QString ApplicationHandler::getWeatherRequestUrl()
+QString ApplicationHandler::buildWeatherRequestUri()
 {
     QString url = this->config->getUrl();
 
