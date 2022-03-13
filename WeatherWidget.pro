@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = widget
 DESTDIR = ./dist
-SOURCES += main.cpp
-INCLUDEPATH += .
-QT += widgets
+SOURCES += ./src/main.cpp
+INCLUDEPATH += ./src
+QT += widgets network
