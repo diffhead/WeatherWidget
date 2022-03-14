@@ -13,7 +13,7 @@ QString WeatherApiResponse::getWindText()
 {
     QString windText = "Wind: ";
 
-    windText.append(QString::number(this->wind.value("speed").toDouble(), 'f', 1));
+    windText.append(QString::number(this->wind.value("speed").toDouble(), 'f', 0));
     windText.append(" m/s");
 
     return windText;
@@ -37,11 +37,11 @@ QString WeatherApiResponse::getWeatherText(QString units)
     weatherText.append(QString::number(this->main.value("temp").toDouble(), 'f', 0));
 
     if ( units == "metric" ) {
-        weatherText.append(" C");
+        weatherText.append("C");
     } else if ( units == "imperial" ) {
-        weatherText.append(" F");
+        weatherText.append("F");
     } else {
-        weatherText.append(" K");
+        weatherText.append("K");
     }
 
     return weatherText;
