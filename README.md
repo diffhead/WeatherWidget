@@ -1,5 +1,4 @@
 # WeatherWidget
-___
 
 This is the simple Qt5/C++ desktop widget for getting current weather from openweather api and showing it.
 ### Installation
