@@ -20,6 +20,7 @@
 
 #include <ApplicationConfig.h>
 #include <ApplicationWindow.h>
+#include <WeatherApiResponse.h>
 
 class ApplicationHandler: public QObject
 {
@@ -33,19 +34,19 @@ class ApplicationHandler: public QObject
         QNetworkAccessManager *network;
 
         QString weatherRequestUri;
+        QString weatherIconCurrent;
 
         void requestWeatherAndShowIt();
 
         QString buildWeatherRequestUri();
+        QString buildWeatherIconUri(QString icon);
 
     public:
         ApplicationHandler(QApplication *application, ApplicationConfig *config);
 
         QApplication *getApplication();
-
+        
         void showApplicationWindow(int width, int height);
-
         void setApplicationWindowTitle(const char *title);
-
         void startWeatherMonitoring();
 };

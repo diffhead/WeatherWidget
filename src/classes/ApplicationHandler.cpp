@@ -10,6 +10,7 @@ ApplicationHandler::ApplicationHandler(QApplication *application, ApplicationCon
     this->window = new ApplicationWindow();
 
     this->weatherRequestUri = this->buildWeatherRequestUri();
+    this->weatherIconCurrent = QString("");
 }
 
 QApplication* ApplicationHandler::getApplication()
@@ -47,16 +48,28 @@ void ApplicationHandler::requestWeatherAndShowIt()
 
     this->reply = this->network->get(request);
 
-    QObject::connect(this->reply, &QNetworkReply::finished, this->reply, [=]() {
-        QJsonObject json = QJsonDocument::fromJson(this->reply->readAll()).object();
+    QObject::connect(this->reply, &QNetworkReply::finished, this, [=]() {
+        WeatherApiResponse response(QJsonDocument::fromJson(this->reply->readAll()).object());
 
-        QJsonObject main = json.value("main").toObject();
-        QJsonObject weather = json.value("weather").toArray().at(0).toObject();
+        QString weatherText = response.getWeatherCity().append("\n\n");
+        QString weatherIcon = response.getWeatherIcon();
 
-        QString weatherDescription = weather.value("main").toString();
-        QString weatherTemperature = QString::number(main.value("temp").toDouble(), 'f', 0);
+        weatherText.append(response.getWeatherText(this->config->getUnits())).append("\n\n");
+        weatherText.append(response.getWindText());
 
-        this->window->setWeatherText(weatherDescription.append(QString(" ")).append(weatherTemperature));
+        this->window->setWeatherText(weatherText);
+
+        if ( this->weatherIconCurrent != weatherIcon ) {
+            QNetworkRequest request(QUrl(this->buildWeatherIconUri(weatherIcon)));
+
+            this->reply = this->network->get(request);
+
+            QObject::connect(this->reply, &QNetworkReply::finished, this, [=]() {
+                QByteArray icon = this->reply->readAll();
+
+                this->window->setWeatherIcon(icon);
+            });
+        }
     });
 }
 
@@ -74,4 +87,9 @@ QString ApplicationHandler::buildWeatherRequestUri()
     url.append("?").append(params.join('&'));
 
     return url;
+}
+
+QString ApplicationHandler::buildWeatherIconUri(QString icon)
+{
+    return QString("https://openweathermap.org/img/w/").append(icon).append(".png");
 }
