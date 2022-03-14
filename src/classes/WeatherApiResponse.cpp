@@ -14,7 +14,7 @@ QString WeatherApiResponse::getWindText()
     QString windText = "Wind: ";
 
     windText.append(QString::number(this->wind.value("speed").toDouble(), 'f', 0));
-    windText.append(" m/s");
+    windText.append("m/s");
 
     return windText;
 }
