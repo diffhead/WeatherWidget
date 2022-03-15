@@ -24,6 +24,3 @@ start your widget.
 * QtCore
 * QtWidgets
 * QtNetwork
-
-### Illustration
-![Widget Demo](https://github.com/diffhead/WeatherWidget/raw/main/sunny.png)
