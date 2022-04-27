@@ -2,18 +2,15 @@
 
 WeatherApiResponse::WeatherApiResponse(QJsonObject json)
 {
-    this->json = json;
-
-    this->main = json.value("main").toObject();
-    this->wind = json.value("wind").toObject();
-    this->weather = json.value("weather").toArray().at(0).toObject();
+    this->weather = json.value("weather").toObject();
+    this->city = json.value("city").toObject();
 }
 
 QString WeatherApiResponse::getWindText()
 {
     QString windText = "Wind: ";
 
-    windText.append(QString::number(this->wind.value("speed").toDouble(), 'f', 0));
+    windText.append(QString::number(this->weather.value("wind_speed").toDouble(), 'f', 0));
     windText.append("m/s");
 
     return windText;
@@ -21,28 +18,21 @@ QString WeatherApiResponse::getWindText()
 
 QString WeatherApiResponse::getWeatherCity()
 {
-    return this->json.value("name").toString();
+    return this->city.value("title").toString();
 }
 
 QString WeatherApiResponse::getWeatherIcon()
 {
-    return this->weather.value("icon").toString();
+    return this->weather.value("weather_icon").toString();
 }
 
-QString WeatherApiResponse::getWeatherText(QString units)
+QString WeatherApiResponse::getWeatherText()
 {
     QString weatherText;
 
-    weatherText.append(this->weather.value("main").toString()).append(" ");
-    weatherText.append(QString::number(this->main.value("temp").toDouble(), 'f', 0));
-
-    if ( units == "metric" ) {
-        weatherText.append("C");
-    } else if ( units == "imperial" ) {
-        weatherText.append("F");
-    } else {
-        weatherText.append("K");
-    }
+    weatherText.append(this->weather.value("weather").toString()).append(" ");
+    weatherText.append(QString::number(this->weather.value("temperature").toDouble(), 'f', 0));
+    weatherText.append(" C");
 
     return weatherText;
 }

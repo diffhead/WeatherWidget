@@ -54,7 +54,7 @@ void ApplicationHandler::requestWeatherAndShowIt()
         QString weatherText = response.getWeatherCity().append("\n\n");
         QString weatherIcon = response.getWeatherIcon();
 
-        weatherText.append(response.getWeatherText(this->config->getUnits())).append("\n\n");
+        weatherText.append(response.getWeatherText()).append("\n\n");
         weatherText.append(response.getWindText());
 
         this->window->setWeatherText(weatherText);
@@ -76,15 +76,9 @@ void ApplicationHandler::requestWeatherAndShowIt()
 QString ApplicationHandler::buildWeatherRequestUri()
 {
     QString url = this->config->getUrl();
+    QString city = this->config->getCity();
 
-    QString apiKey = QString("appid=").append(this->config->getApiKey());
-    QString latitude = QString("lat=").append(this->config->getLatitude());
-    QString longitude = QString("lon=").append(this->config->getLongitude());
-    QString units = QString("units=").append(this->config->getUnits());
-
-    QStringList params = { apiKey, latitude, longitude, units };
-
-    url.append("?").append(params.join('&'));
+    url.append("?city=").append(city);
 
     return url;
 }

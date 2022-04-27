@@ -1,7 +1,4 @@
 {
-    "apiUrl": "https://api.openweathermap.org/data/2.5/weather",
-    "apiKey": "b03f90144e621f4830a8e541163d709f",
-    "latitude": 51.6683,
-    "longitude": 39.1919,
-    "units": "metric"
+    "apiUrl": "http://local.development.me/weather/get",
+    "apiCity": "Voronezh"
 }

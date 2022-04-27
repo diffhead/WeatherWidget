@@ -15,12 +15,7 @@ class ApplicationConfig: public QJsonObject
         bool initialized = false;
 
         QString url;
-        QString key;
-
-        QString latitude;
-        QString longitude;
-
-        QString units;
+        QString city;
 
     public:
         ApplicationConfig();
@@ -28,8 +23,5 @@ class ApplicationConfig: public QJsonObject
         bool isInitialized();
 
         QString getUrl();
-        QString getApiKey();
-        QString getLatitude();
-        QString getLongitude();
-        QString getUnits();
+        QString getCity();
 };

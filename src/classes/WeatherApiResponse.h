@@ -9,10 +9,7 @@
 class WeatherApiResponse
 {
     private:
-        QJsonObject json;
-
-        QJsonObject main;
-        QJsonObject wind;
+        QJsonObject city;
         QJsonObject weather;
 
     public:
@@ -21,5 +18,5 @@ class WeatherApiResponse
         QString getWindText();
         QString getWeatherCity();
         QString getWeatherIcon();
-        QString getWeatherText(QString units);
+        QString getWeatherText();
 };
