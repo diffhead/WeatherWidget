@@ -3,7 +3,7 @@
 WeatherApiResponse::WeatherApiResponse(QJsonObject json)
 {
     this->weather = json.value("weather").toObject();
-    this->city = json.value("city").toObject();
+    this->city = json.value("location").toObject().value("city").toObject();
 }
 
 QString WeatherApiResponse::getWindText()
@@ -31,7 +31,7 @@ QString WeatherApiResponse::getWeatherText()
     QString weatherText;
 
     weatherText.append(this->weather.value("weather").toString()).append(" ");
-    weatherText.append(QString::number(this->weather.value("temperature").toDouble(), 'f', 0));
+    weatherText.append(QString::number(this->weather.value("temperature").toString().toDouble(), 'f', 0));
     weatherText.append(" C");
 
     return weatherText;
