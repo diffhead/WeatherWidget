@@ -1,9 +1,10 @@
 #include <ApplicationHandler.h>
 
-ApplicationHandler::ApplicationHandler(QApplication *application, ApplicationConfig *config)
+ApplicationHandler::ApplicationHandler(QApplication *application, QString widgetVersion, ApplicationConfig *config)
 {
     this->config = config; 
     this->application = application;
+    this->widgetVersion = widgetVersion;
 
     this->timer = new QTimer(this);
     this->network = new QNetworkAccessManager();
@@ -46,6 +47,8 @@ void ApplicationHandler::requestWeatherAndShowIt()
 {
     QNetworkRequest request(QUrl(this->weatherRequestUri));
 
+    request.setRawHeader(QByteArray("User-Agent"), QByteArray("QWeatherWidget v").append(this->getWidgetVersion().toUtf8()));
+
     this->reply = this->network->get(request);
 
     QObject::connect(this->reply, &QNetworkReply::finished, this, [=]() {
@@ -71,6 +74,11 @@ void ApplicationHandler::requestWeatherAndShowIt()
             });
         }
     });
+}
+
+QString ApplicationHandler::getWidgetVersion()
+{
+    return this->widgetVersion;
 }
 
 QString ApplicationHandler::buildWeatherRequestUri()

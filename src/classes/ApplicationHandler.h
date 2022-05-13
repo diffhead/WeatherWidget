@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+#include <QByteArray>
 
 #include <QLabel>
 #include <QWidget>
@@ -25,6 +26,8 @@
 class ApplicationHandler: public QObject
 {
     private:
+        QString widgetVersion;
+
         QApplication *application;
         ApplicationConfig *config;
         ApplicationWindow *window;
@@ -37,12 +40,13 @@ class ApplicationHandler: public QObject
         QString weatherIconCurrent;
 
         void requestWeatherAndShowIt();
+        QString getWidgetVersion();
 
         QString buildWeatherRequestUri();
         QString buildWeatherIconUri(QString icon);
 
     public:
-        ApplicationHandler(QApplication *application, ApplicationConfig *config);
+        ApplicationHandler(QApplication *application, QString widgetVersion, ApplicationConfig *config);
 
         QApplication *getApplication();
         

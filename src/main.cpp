@@ -5,6 +5,8 @@
 #include <classes/ApplicationConfig.h>
 #include <classes/ApplicationHandler.h>
 
+#define WIDGET_VERSION "0.1"
+
 using std::cout;
 
 int main(int argc, char *argv[])
@@ -19,7 +21,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    ApplicationHandler handler(&application, &config);
+    ApplicationHandler handler(&application, QString(WIDGET_VERSION), &config);
 
     handler.setApplicationWindowTitle("Weather Widget");
     handler.showApplicationWindow(200, 100);
